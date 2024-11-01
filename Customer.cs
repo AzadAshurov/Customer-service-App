@@ -4,7 +4,7 @@ namespace Customer_service
 {
     internal class Customer
     {
-        public static string jsonAddress = @"C:\Users\Baku\Desktop\Customer service\customers.json";
+        public static string jsonAddress = @"C:\Users\II novbe\Desktop\Customer-service-App\customers.json";
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -68,41 +68,50 @@ namespace Customer_service
                 Console.WriteLine("Doesnt exists");
             }
         }
-public static void Update(int id, string newFirstName, string newLastName, string newPhoneNumber){
-List<Customer> list = PullCustomers();
-if (list == null)
-                    { 
-Console.WriteLine("No customers");
-return;
-}
+        public static void Update(int id, string newFirstName, string newLastName, string newPhoneNumber)
+        {
+            List<Customer> list = PullCustomers();
+            if (list == null)
+            {
+                Console.WriteLine("No customers");
+                return;
+            }
             if (list.Any(x => x.Id == id))
-            { 
-var updateCustomer = list.Find(x => x.Id == id);
-updateCustomer.FirstName =newFirstName;
-updateCustomer.LastName =newLastName;
-updateCustomer.PhoneNumber =newPhoneNumber;
-PushCustomers(list);
+            {
+                var updateCustomer = list.Find(x => x.Id == id);
+                updateCustomer.FirstName = newFirstName;
+                updateCustomer.LastName = newLastName;
+                updateCustomer.PhoneNumber = newPhoneNumber;
+                PushCustomers(list);
 
-}
-else{
-Console.WriteLine("This index doesnt exists");
-}
-}
-public static void DeleteCustomer(int id){
-List<Customer> list = PullCustomers();
-if (list.Any(x => x.Id == id))
-            { 
-list.RemoveAt(id);
-PushCustomers(list);
-}
-}
-public static void GetAll(){
-List<Customer> list = PullCustomers();
-foreach (var customer in list)
-                {
-                    Console.WriteLine($"ID: {customer.Id}, FirstName: {customer.FirstName}, LastName: {customer.LastName}, PhoneNumber: {customer.PhoneNumber}");
-                }
-}
+            }
+            else
+            {
+                Console.WriteLine("This index doesnt exists");
+            }
+        }
+        public static void DeleteCustomer(int id)
+        {
+            List<Customer> list = PullCustomers();
+            if (list.Any(x => x.Id == id))
+            {
+                list.Remove(list.Find(x => x.Id == id));
+                PushCustomers(list);
+                Console.WriteLine("Deleted");
+            }
+            else
+            {
+                Console.WriteLine("no such index");
+            }
+        }
+        public static void GetAll()
+        {
+            List<Customer> list = PullCustomers();
+            foreach (var customer in list)
+            {
+                Console.WriteLine($"ID: {customer.Id}, FirstName: {customer.FirstName}, LastName: {customer.LastName}, PhoneNumber: {customer.PhoneNumber}");
+            }
+        }
 
 
     }
